@@ -18,8 +18,13 @@ const listReducer = (state = initialState, action) => {
         listData: [...state.listData, {_id: uuid.v4(), name: action.data}],
       };
     case REQUEST_UPDATE_TASK_SUCCESS:
+      const cloneListDataToUpdate = [...state.listData];
+      const dataIndex = cloneListDataToUpdate.findIndex(
+        item => item._id === action.data._id,
+      );
+      cloneListDataToUpdate[dataIndex] = action.data;
       return {
-        listData: action.data,
+        listData: cloneListDataToUpdate,
       };
     case REQUEST_DELETE_TASK_SUCCESS:
       const cloneListData = [...state.listData];

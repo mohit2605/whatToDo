@@ -52,11 +52,14 @@ export function* updateTaskSaga(action) {
     const data = idx(res, _ => _.data) || {};
     if (status === 200) {
       yield put({type: REQUEST_UPDATE_TASK_SUCCESS, data});
+      action.callback && action.callback({status, data});
     } else {
       yield put({type: REQUEST_UPDATE_TASK_ERROR, data});
+      action.callback && action.callback({status, data});
     }
   } catch (error) {
     yield put({type: REQUEST_UPDATE_TASK_ERROR, error});
+    action.callback && action.callback({error});
   }
 }
 

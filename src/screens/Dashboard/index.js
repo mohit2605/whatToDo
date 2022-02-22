@@ -70,26 +70,42 @@ class Dashboard extends PureComponent {
     );
   };
 
+  _onSubmitData = async data => {
+    const {callAddTask} = this.props;
+    await callAddTask(data, resp => {
+      const status = idx(resp, _ => _.status) || '';
+      if (status === 200) {
+        this.setState({isAddTaskModalVisible: false});
+        Toast.show('Task added successfully!');
+      } else {
+        Toast.show('Something went wrong!');
+      }
+    });
+  };
+
+  _onUpdateData = async data => {
+    const {callUpdateTask} = this.props;
+    await callUpdateTask(data, resp => {
+      const status = idx(resp, _ => _.status) || '';
+      if (status === 200) {
+        this.setState({isAddTaskModalVisible: false});
+        Toast.show('Task updated successfully!');
+      } else {
+        Toast.show('Something went wrong!');
+      }
+    });
+  };
+
   render() {
-    const {listData, callAddTask, callUpdateTask} = this.props;
+    const {listData, callUpdateTask} = this.props;
     const {isAddTaskModalVisible, selectedTask} = this.state;
     return (
       <View style={styles.container}>
         <AddTaskModal
           selectedTask={selectedTask}
           isEditMode={Object.keys(selectedTask).length > 0}
-          onSubmit={data =>
-            callAddTask(data, resp => {
-              const status = idx(resp, _ => _.status) || '';
-              if (status === 200) {
-                this.setState({isAddTaskModalVisible: false});
-                Toast.show('Task added successfully!');
-              } else {
-                Toast.show('Something went wrong!');
-              }
-            })
-          }
-          onUpdate={data => callUpdateTask(data)}
+          onSubmit={this._onSubmitData}
+          onUpdate={this._onUpdateData}
           onRequestClose={() =>
             this.setState({isAddTaskModalVisible: false, selectedTask: {}})
           }
@@ -125,7 +141,8 @@ const mapDispatchToProps = dispatch => {
   return {
     callAddTask: (data, callback) =>
       dispatch({type: REQUEST_ADD_TASK, data, callback}),
-    callUpdateTask: data => dispatch({type: REQUEST_UPDATE_TASK, data}),
+    callUpdateTask: (data, callback) =>
+      dispatch({type: REQUEST_UPDATE_TASK, data, callback}),
     callDeleteTask: data => dispatch({type: REQUEST_DELETE_TASK, data}),
     callListTask: () => dispatch({type: REQUEST_FETCH_TASK_LIST}),
   };
