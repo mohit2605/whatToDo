@@ -15,7 +15,10 @@ const listReducer = (state = initialState, action) => {
   switch (action.type) {
     case REQUEST_ADD_TASK_SUCCESS:
       return {
-        listData: [...state.listData, {_id: uuid.v4(), name: action.data}],
+        listData: [
+          ...state.listData,
+          {_id: uuid.v4(), name: action.data, isComplete: false},
+        ],
       };
     case REQUEST_UPDATE_TASK_SUCCESS:
       const cloneListDataToUpdate = [...state.listData];

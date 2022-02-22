@@ -31,6 +31,7 @@ class Dashboard extends PureComponent {
         onEdit={data =>
           this.setState({selectedTask: data, isAddTaskModalVisible: true})
         }
+        onMarkComplete={this._onMarkComplete}
         onDelete={data => this._alertDeleteTask(data)}
         key={index}
         data={item}
@@ -75,7 +76,7 @@ class Dashboard extends PureComponent {
     await callAddTask(data, resp => {
       const status = idx(resp, _ => _.status) || '';
       if (status === 200) {
-        this.setState({isAddTaskModalVisible: false});
+        this.setState({isAddTaskModalVisible: false, selectedTask: {}});
         Toast.show('Task added successfully!');
       } else {
         Toast.show('Something went wrong!');
@@ -88,7 +89,21 @@ class Dashboard extends PureComponent {
     await callUpdateTask(data, resp => {
       const status = idx(resp, _ => _.status) || '';
       if (status === 200) {
-        this.setState({isAddTaskModalVisible: false});
+        this.setState({isAddTaskModalVisible: false, selectedTask: {}});
+        Toast.show('Task updated successfully!');
+      } else {
+        Toast.show('Something went wrong!');
+      }
+    });
+  };
+
+  _onMarkComplete = async data => {
+    const {callUpdateTask} = this.props;
+    const cloneData = {...data};
+    cloneData.isCompleted = !cloneData.isCompleted;
+    await callUpdateTask(cloneData, resp => {
+      const status = idx(resp, _ => _.status) || '';
+      if (status === 200) {
         Toast.show('Task updated successfully!');
       } else {
         Toast.show('Something went wrong!');
@@ -97,7 +112,7 @@ class Dashboard extends PureComponent {
   };
 
   render() {
-    const {listData, callUpdateTask} = this.props;
+    const {listData} = this.props;
     const {isAddTaskModalVisible, selectedTask} = this.state;
     return (
       <View style={styles.container}>
@@ -113,7 +128,7 @@ class Dashboard extends PureComponent {
         />
         {listData.length > 0 ? (
           <FlatList
-            data={listData}
+            data={listData.sort((a, b) => !b.isCompleted - !a.isCompleted)}
             extraData={listData}
             contentContainerStyle={styles.listScroll}
             showsVerticalScrollIndicator={false}

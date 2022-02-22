@@ -8,21 +8,34 @@ import * as Icons from '../../constants/svg';
 import DefaultProps from '../../constants/DefaultProps';
 import PropTypes from 'prop-types';
 import * as Colors from '../../themes/colors';
+import CheckBox from '@react-native-community/checkbox';
 
 const TaskCard = props => {
-  const {data, onEdit, onDelete} = props;
+  const {data, onEdit, onDelete, onMarkComplete} = props;
   const name = idx(data, _ => _.name) || '';
+  const isTaskCompleted = idx(data, _ => _.isCompleted) || false;
 
   const renderTitle = () => {
     return (
       <View style={styles.titleMainContainer}>
         <View style={styles.titleContainer}>
+          <CheckBox
+            style={styles.checkBoxStyle}
+            tintColors={{
+              true: Colors.BLACK,
+              false: Colors.RED_ACTIVE,
+            }}
+            onValueChange={() => onMarkComplete(data)}
+            value={isTaskCompleted}
+          />
           <Text style={[commonStyles.SEMI_BOLD_16_BLACK, styles.extraTitle]}>
             {name}
           </Text>
         </View>
         <View style={styles.editContainer}>
-          <TouchableOpacity onPress={() => onEdit(data)}>
+          <TouchableOpacity
+            disabled={isTaskCompleted}
+            onPress={() => onEdit(data)}>
             <SvgXml
               fill={Colors.BLACK}
               width={22}
@@ -30,7 +43,9 @@ const TaskCard = props => {
               xml={Icons.EDIT_PEN}
             />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => onDelete(data)}>
+          <TouchableOpacity
+            disabled={isTaskCompleted}
+            onPress={() => onDelete(data)}>
             <SvgXml
               fill={Colors.BLACK}
               width={24}
@@ -43,18 +58,20 @@ const TaskCard = props => {
     );
   };
 
-  return <View style={styles.container}>{renderTitle()}</View>;
+  return <View style={styles.container(isTaskCompleted)}>{renderTitle()}</View>;
 };
 
 TaskCard.defaultProps = {
   data: DefaultProps.EMPTY_OBJECT,
   onEdit: DefaultProps.noop,
+  onMarkComplete: DefaultProps.noop,
   onDelete: DefaultProps.noop,
 };
 
 TaskCard.propTypes = {
   data: PropTypes.object,
   onEdit: PropTypes.func,
+  onMarkComplete: PropTypes.func,
   onDelete: PropTypes.func,
 };
 

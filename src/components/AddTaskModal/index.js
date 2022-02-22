@@ -26,8 +26,8 @@ export const AddTaskModal = props => {
   const [task, setTask] = useState('');
 
   useEffect(() => {
-    const categoryName = idx(selectedTask, _ => _.name) || '';
-    setTask(categoryName);
+    const taskName = idx(selectedTask, _ => _.name) || '';
+    setTask(taskName);
   }, [selectedTask]);
 
   const renderHeader = () => {

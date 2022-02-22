@@ -3,15 +3,15 @@ import {responsiveHeight, responsiveWidth} from '../../utils/scalingUtils';
 import * as Colors from '../../themes/colors';
 
 export const styles = StyleSheet.create({
-  container: {
+  container: isTaskCompleted => ({
     width: '95%',
-    backgroundColor: Colors.WHITE,
+    backgroundColor: isTaskCompleted ? Colors.BORDER : Colors.WHITE,
     borderRadius: 6,
     paddingHorizontal: responsiveWidth(3),
     paddingVertical: responsiveHeight(2.5),
     alignSelf: 'center',
     marginBottom: responsiveHeight(2.5),
-  },
+  }),
   extraTitle: {
     color: Colors.BLACK,
     paddingLeft: responsiveWidth(2),
@@ -32,5 +32,8 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     flexDirection: 'row',
+  },
+  checkBoxStyle: {
+    marginRight: responsiveWidth(2),
   },
 });

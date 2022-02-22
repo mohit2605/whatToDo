@@ -65,15 +65,18 @@ export function* updateTaskSaga(action) {
 
 export function* listTaskSaga(action) {
   try {
-    const res = yield call(listTask, action.data);
+    const res = yield call(listTask);
     const status = idx(res, _ => _.status) || '';
     const data = idx(res, _ => _.data) || {};
     if (status === 200) {
       yield put({type: REQUEST_FETCH_TASK_LIST_SUCCESS, data});
+      action.callback && action.callback({status, data});
     } else {
       yield put({type: REQUEST_FETCH_TASK_LIST_ERROR, data});
+      action.callback && action.callback({status, data});
     }
   } catch (error) {
     yield put({type: REQUEST_FETCH_TASK_LIST_ERROR, error});
+    action.callback && action.callback({error});
   }
 }
