@@ -13,4 +13,9 @@ const EDIT_PEN = `<svg width="20" height="21" viewBox="0 0 20 21" fill="none" xm
    </svg>
    `;
 
-export {PLUS, TRASH, EDIT_PEN};
+const CROSS = `<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+   <path fill-rule="evenodd" clip-rule="evenodd" d="M8.99999 11.1213L2.56065 17.5606L0.439331 15.4393L6.87867 8.99999L0.439331 2.56065L2.56065 0.439331L8.99999 6.87867L15.4393 0.439331L17.5606 2.56065L11.1213 8.99999L17.5606 15.4393L15.4393 17.5606L8.99999 11.1213V11.1213Z" />
+   </svg>
+   `;
+
+export {PLUS, TRASH, EDIT_PEN, CROSS};

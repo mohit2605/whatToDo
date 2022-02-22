@@ -13,7 +13,7 @@ export const styles = StyleSheet.create({
     height: responsiveHeight(7),
     borderRadius: 6,
     borderColor: isHollowButton ? Colors.WHITE : Colors.BLACK,
-    borderWidth: isHollowButton ? 1 : undefined,
+    borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center',
     opacity: disabled ? 0.5 : 1,
