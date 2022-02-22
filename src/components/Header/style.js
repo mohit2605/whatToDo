@@ -1,10 +1,14 @@
 import {Platform, StyleSheet} from 'react-native';
-import {getResponsiveFontSize, responsiveWidth} from '../../utils/scalingUtils';
+import {
+  getResponsiveFontSize,
+  isIphoneXorAbove,
+  responsiveWidth,
+} from '../../utils/scalingUtils';
 import * as Colors from '../../themes/colors';
 
 export const styles = StyleSheet.create({
   title: {
-    fontSize: getResponsiveFontSize(16),
+    fontSize: getResponsiveFontSize(17),
     fontWeight: 'bold',
     color: Colors.WHITE,
     marginVertical: responsiveWidth(4),
@@ -15,6 +19,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     elevation: 10,
+    paddingTop: isIphoneXorAbove() ? responsiveWidth(9) : 0,
     borderBottomRightRadius: 20,
     borderBottomLeftRadius: 20,
   },
