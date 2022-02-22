@@ -22,8 +22,13 @@ const listReducer = (state = initialState, action) => {
         listData: action.data,
       };
     case REQUEST_DELETE_TASK_SUCCESS:
+      const cloneListData = [...state.listData];
+      const index = cloneListData.findIndex(
+        item => item._id === action.data._id,
+      );
+      cloneListData.splice(index, 1);
       return {
-        listData: action.data,
+        listData: cloneListData,
       };
     case REQUEST_FETCH_TASK_LIST_SUCCESS:
       return {

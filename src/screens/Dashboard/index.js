@@ -56,7 +56,7 @@ class Dashboard extends PureComponent {
   _alertDeleteTask = task => {
     Alert.alert(
       '',
-      'Delete this task?',
+      'Are you sure? You want to delete this task?',
       [
         {
           text: 'NO',
