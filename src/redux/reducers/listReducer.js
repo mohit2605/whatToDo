@@ -5,6 +5,7 @@ import {
   REQUEST_DELETE_TASK_SUCCESS,
   REQUEST_FETCH_TASK_LIST_SUCCESS,
 } from '../actions/listAction';
+import uuid from 'react-native-uuid';
 
 const initialState = {
   listData: [],
@@ -14,7 +15,7 @@ const listReducer = (state = initialState, action) => {
   switch (action.type) {
     case REQUEST_ADD_TASK_SUCCESS:
       return {
-        listData: action.data,
+        listData: [...state.listData, {_id: uuid.v4(), name: action.data}],
       };
     case REQUEST_UPDATE_TASK_SUCCESS:
       return {

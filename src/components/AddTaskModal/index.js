@@ -21,14 +21,14 @@ export const AddTaskModal = props => {
     onUpdate,
     isLoading,
     isEditMode,
-    selectedCategory,
+    selectedTask,
   } = props;
   const [task, setTask] = useState('');
 
   useEffect(() => {
-    const categoryName = idx(selectedCategory, _ => _.name) || '';
+    const categoryName = idx(selectedTask, _ => _.name) || '';
     setTask(categoryName);
-  }, [selectedCategory]);
+  }, [selectedTask]);
 
   const renderHeader = () => {
     return (
@@ -81,7 +81,7 @@ export const AddTaskModal = props => {
                   disabled={!task}
                   onPress={() =>
                     isEditMode
-                      ? onUpdate({_id: selectedCategory._id, name: task})
+                      ? onUpdate({_id: selectedTask._id, name: task})
                       : onSubmit(task)
                   }
                   title={isEditMode ? 'UPDATE' : 'SAVE'}
@@ -104,7 +104,7 @@ AddTaskModal.defaultProps = {
   isVisible: false,
   isLoading: false,
   isEditMode: false,
-  selectedCategory: DefaultProps.EMPTY_OBJECT,
+  selectedTask: DefaultProps.EMPTY_OBJECT,
 };
 
 AddTaskModal.propTypes = {
@@ -115,5 +115,5 @@ AddTaskModal.propTypes = {
   isVisible: PropTypes.bool,
   isLoading: PropTypes.bool,
   isEditMode: PropTypes.bool,
-  selectedCategory: PropTypes.object,
+  selectedTask: PropTypes.object,
 };

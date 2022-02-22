@@ -31,6 +31,7 @@ export const styles = StyleSheet.create({
   },
   buttonText: isHollowButton => ({
     fontSize: getResponsiveFontSize(16),
+    fontWeight: '500',
     includeFontPadding: false,
     color: isHollowButton ? Colors.WHITE : Colors.BLACK,
     marginHorizontal: responsiveWidth(2),
