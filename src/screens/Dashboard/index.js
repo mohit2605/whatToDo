@@ -15,6 +15,7 @@ import {
 } from '../../redux/actions/listAction';
 import idx from 'idx';
 import Toast from 'react-native-simple-toast';
+import Header from '../../components/Header';
 
 class Dashboard extends PureComponent {
   constructor(props) {
@@ -116,6 +117,7 @@ class Dashboard extends PureComponent {
     const {isAddTaskModalVisible, selectedTask} = this.state;
     return (
       <View style={styles.container}>
+        <Header title={'My Todo List'} />
         <AddTaskModal
           selectedTask={selectedTask}
           isEditMode={Object.keys(selectedTask).length > 0}

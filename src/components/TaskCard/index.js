@@ -44,7 +44,6 @@ const TaskCard = props => {
             />
           </TouchableOpacity>
           <TouchableOpacity
-            disabled={isTaskCompleted}
             onPress={() => onDelete(data)}>
             <SvgXml
               fill={Colors.BLACK}
