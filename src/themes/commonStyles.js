@@ -7,6 +7,10 @@ export const commonStyles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.APP_DARK_BACKGROUND_500,
   }),
+  SEMI_BOLD_20: {
+    fontSize: getResponsiveFontSize(20),
+    color: Colors.WHITE,
+  },
   SEMI_BOLD_16_BLACK: {
     fontSize: getResponsiveFontSize(16),
     includeFontPadding: false,
