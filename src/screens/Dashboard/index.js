@@ -1,6 +1,7 @@
 import React, {PureComponent} from 'react';
 import {View, Text} from 'react-native';
 import {connect} from 'react-redux';
+import FAB from '../../components/FAB';
 import {styles} from './style';
 
 class Dashboard extends PureComponent {
@@ -8,6 +9,7 @@ class Dashboard extends PureComponent {
     return (
       <View style={styles.container}>
         <Text>Dashboard</Text>
+        <FAB />
       </View>
     );
   }
